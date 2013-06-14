@@ -1,0 +1,53 @@
+See http://www.thumbtack.com/challenges
+
+Problem 2: Simple Database
+
+Your task is create a very simple in-memory database, which has a very limited
+command set. Please code your solution in one of the following languages:
+Python, PHP, JavaScript, Ruby, Perl, Java, C++ or C. This problem should take
+you anywhere from 30 to 90 minutes. All of the commands are going to be fed to
+you one line at a time via stdin, and your job is to process the commands and
+to perform whatever operation the command dictates.
+
+Commands you need to handle
+
+SET [name] [value]: Set a variable [name] to the value [value]. Neither
+variable names nor values will ever contain spaces.
+
+GET [name]: Print out the value stored under the variable [name]. Print NULL if
+that variable name hasn't been set.
+
+UNSET [name]: Unset the variable [name]
+
+NUMEQUALTO [value]: Return the number of variables equal to [value]. If no
+values are equal, this should output 0.
+
+END: Exit the program
+
+Now, as I said this was a database, and because of that we want to add in a few
+transactional features to help us maintain data integrity. So there are 3
+additional commands you will need to support:
+
+BEGIN: Open a transactional block
+
+ROLLBACK: Rollback all of the commands from the most recent transaction block.
+If no transactional block is open, print out INVALID ROLLBACK
+
+COMMIT: Permanently store all of the operations from any presently open
+transactional blocks
+
+Our database supports nested transactional blocks as you can tell by the above
+commands. Remember, ROLLBACK only rolls back the most recent transaction block,
+while COMMIT closes all open transactional blocks. Any command issued outside
+of a transactional block commits automatically. The most commonly used commands
+are GET, SET, UNSET and NUMEQUALTO, and each of these commands should be faster
+than O(N) expected worst case, where N is the number of total variables stored
+in the database. Hint: this means that, for example, if your database had 100
+items in it, your solution should be able to perform the GET, SET, UNSET and
+NUMEQUALTO operations without scanning all 100 items. 
+
+Typically, we will already have committed a lot of data when we begin a new
+transaction, but the transaction will only modify a few values. So, your
+solution should be efficient about how much memory is allocated for new
+transactions, i.e., it is bad if beginning a transaction nearly doubles your
+program's memory usage. 
